@@ -6,7 +6,7 @@ using TANP.Lib.Model;
 
 namespace TANP.Service.Services
 {
-    public class BasketManager
+    public class BasketManager : IBasketManager
     {
         public Product AddItem(int customerId, int productId)
         {

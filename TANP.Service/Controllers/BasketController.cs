@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TANP.Lib.Model;
 using TANP.Lib.RequestModel;
+using TANP.Service.Services;
 
 namespace TANP.Service.Controllers
 {
@@ -14,35 +15,64 @@ namespace TANP.Service.Controllers
     public class BasketController : ControllerBase
     {
 
-       private readonly ILogger<BasketController> _logger;
+       private readonly ILogger<BasketController> logger;
+        private readonly IBasketManager manager;
 
-        public BasketController(ILogger<BasketController> logger)
+
+        public BasketController(IBasketManager basketManager, ILogger<BasketController> logger)
         {
-            _logger = logger;
+            manager = basketManager;
+            this.logger = logger;
         }
 
         [HttpGet("{orderNumber}")]
-        public ActionResult<Basket> Get(int orderNumber)
+        public ActionResult<Basket> Get(int basketnumber)
         {
-            throw new NotImplementedException();
+            logger.LogInformation($"Get called ({basketnumber})");
+            try
+            {
+                return Ok(manager.GetBasket(basketnumber));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
         [HttpPost]
         public ActionResult<Basket> Create([FromBody] Customer customer)
-        {
+        {  // out of scope
             throw new NotImplementedException();
         }
 
-        [HttpPost]
+        [HttpPost("/item")]
         public ActionResult<Product> AddItem([FromBody] ItemRequest request)
         {
-            throw new NotImplementedException();
+            logger.LogInformation($"AddItem Post called ({request.ProductNumber})");
+            try
+            {
+                return Created(Request.Path, manager.AddItem(request.BasketNumber, request.ProductNumber));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
-        [HttpDelete]
+        [HttpDelete("/item")]
         public ActionResult RemoveItem([FromBody] ItemRequest request)
         {
-            throw new NotImplementedException();
+            logger.LogInformation($"RemoveItem Delete called ({request.ProductNumber})");
+
+            try
+            {
+                manager.RemoveItem(request.BasketNumber, request.ProductNumber);
+                return StatusCode(204);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
 
