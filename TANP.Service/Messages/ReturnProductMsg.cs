@@ -1,6 +1,6 @@
 ﻿namespace TANP.Service.Messages
 {
-    public class ReturnProductMsg
+    public class ReturnProductMsg: IMessage
     {
 
         public int ProductId { get; }

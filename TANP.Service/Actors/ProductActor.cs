@@ -3,6 +3,7 @@ using System;
 using TANP.Lib.Model;
 using TANP.Service.Exceptions;
 using TANP.Service.Messages;
+using TANP.Service.Messages.ExceptionMessages;
 
 namespace TANP.Service.Actors
 {
@@ -17,11 +18,11 @@ namespace TANP.Service.Actors
 
         }
 
-        public ProductActor(AddNewProductMsg msg)
-        {
-            product = msg;              // stinkt een beetje
-            stock = msg.Stock;
-        }
+        //public ProductActor(AddNewProductMsg msg)
+        //{
+        //    product = msg;              // stinkt een beetje
+        //    stock = msg.Stock;
+        //}
 
         protected override void OnReceive(object message)
         {
@@ -42,13 +43,17 @@ namespace TANP.Service.Actors
         private void Handle(TakeProductMsg msg)
         {
             if (stock <= 0)
-                throw new OutOfStockException();
+            {
+                Sender.Tell(new ProductOutOfStockMessage());
+            }
+              //  throw new OutOfStockException();
 
             stock--;
 
             ActorSelection basketActor = Context.ActorSelection(ActorSelectionPaths.Basket(msg.BasketId));
             msg.Product = product;
             basketActor.Tell(msg);
+            Sender.Tell(new ResponseMessage { RequestMessage = msg, Response = "Product picked from stock", ResponseObject = product });
         }
 
         private void Handle(ReturnProductMsg msg)
@@ -56,8 +61,7 @@ namespace TANP.Service.Actors
 
         public void Handle(AddNewProductMsg msg)
         {
-            product = msg;
-#warning // stinkt een beetje
+            product =  new Product { Price = msg.Price, ProductName = msg.ProductName, ProductNumber = msg.ProductNumber };
             stock = msg.Stock;
         }
     }

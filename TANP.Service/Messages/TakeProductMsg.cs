@@ -3,7 +3,7 @@
 namespace TANP.Service.Messages
 {
 
-    public class TakeProductMsg
+    public class TakeProductMsg: IMessage
     {
 
         public int ProductId { get; }

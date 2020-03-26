@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TANP.Service.Messages;
+using TANP.Service.Messages.ExceptionMessages;
 
 namespace TANP.Service.Actors
 {
@@ -21,6 +22,10 @@ namespace TANP.Service.Actors
                     break;
                 case AddNewProductMsg nw:
                     Handle(nw);
+                    break;
+
+                case ExceptionMessage emsg:
+                    Handle(emsg);
                     break;
             }
         }
@@ -46,5 +51,10 @@ namespace TANP.Service.Actors
             productActor.Tell(msg);
         }
 
+
+        private void Handle(ExceptionMessage exceptionMsg)
+        {
+
+        }
     }
 }
