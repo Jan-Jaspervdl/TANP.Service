@@ -34,8 +34,8 @@ namespace TANP.Service.Actors
 
         private void Handle(ReturnProductMsg msg)
         {
-            ActorSelection basketMngActor = Context.ActorSelection(ActorSelectionPaths.Product( msg.ProductId));
-            basketMngActor.Tell(msg);
+            ActorSelection productActor = Context.ActorSelection(ActorSelectionPaths.Product( msg.ProductId));
+            productActor.Tell(msg);
         }
 
 
@@ -43,6 +43,7 @@ namespace TANP.Service.Actors
         {
             Props props = Props.Create<ProductActor>(msg);
             IActorRef productActor = Context.ActorOf(props, ActorNames.Product(msg.ProductNumber));
+            productActor.Tell(msg);
         }
 
     }

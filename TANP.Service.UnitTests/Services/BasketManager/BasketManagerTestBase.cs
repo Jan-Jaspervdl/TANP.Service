@@ -15,14 +15,15 @@ namespace TANP.Service.UnitTests.Services.BasketManager
 
         protected virtual void Arrange()
         {
-            actorsystem = new Mock<ITanpActorSystem>();
             SetupActorSystemMock();
 
             manager = new Service.Services.BasketManager(actorsystem.Object, null);
         }
 
         protected virtual void SetupActorSystemMock()
-        { }
+        {
+            actorsystem = new Mock<ITanpActorSystem>();
+        }
 
         protected virtual void Act()
         {

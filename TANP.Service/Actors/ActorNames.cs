@@ -18,7 +18,8 @@
         public static string Stock()
             => $"stock";
 
-
+        public static string BasketItem(int productNumber)
+            =>  $"item-{productNumber}";
 
     }
 }

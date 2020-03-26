@@ -9,8 +9,13 @@ namespace TANP.Service.Actors
     public class ProductActor : UntypedActor
     {
 
-        Product product;
-        int stock;
+       private Product product;
+       private int stock;
+
+        public ProductActor()
+        {
+
+        }
 
         public ProductActor(AddNewProductMsg msg)
         {
@@ -27,6 +32,9 @@ namespace TANP.Service.Actors
                     break;
                 case ReturnProductMsg ret:
                     Handle(ret);
+                    break;
+                case AddNewProductMsg nw:
+                    Handle (nw);
                     break;
             }
         }
@@ -46,5 +54,11 @@ namespace TANP.Service.Actors
         private void Handle(ReturnProductMsg msg)
         => stock++;
 
+        public void Handle(AddNewProductMsg msg)
+        {
+            product = msg;
+#warning // stinkt een beetje
+            stock = msg.Stock;
+        }
     }
 }
