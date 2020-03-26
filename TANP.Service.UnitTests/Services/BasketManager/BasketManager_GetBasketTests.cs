@@ -16,11 +16,10 @@ namespace TANP.Service.UnitTests.Services.BasketManager
 
         private Basket CreateTestResponseBasket()
         {
-            List<Product> items = new List<Product>();
-            items.Add(new Product { Price = 5, ProductName = "test prod", ProductNumber = 123 });
+            List<BasketItem> items = new List<BasketItem>();
+            items.Add(new BasketItem { Product = new Product { Price = 5, ProductName = "test prod", ProductNumber = 123 }, Count = 2 });
 
-            return new Basket { BasketNumber = c_validBasket, ProductItems = items, CustomerNumber = 654 };
-
+            return new Basket { BasketNumber = 2, ProductItems = items, CustomerNumber = 654 };
         }
 
         protected override void SetupActorSystemMock()
