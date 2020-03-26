@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TANP.Service", "TANP.Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TANP.Lib", "TANP.Lib\TANP.Lib.csproj", "{B65EB5C9-ABF9-456C-8A2D-122A301B7930}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{86EEC9F3-446F-4D03-9A3B-F41784AB16E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TANP.Service.UnitTests", "TANP.Service.UnitTests\TANP.Service.UnitTests.csproj", "{C5454741-FD03-4B9A-BD4B-5C04BCA49921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{B65EB5C9-ABF9-456C-8A2D-122A301B7930}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B65EB5C9-ABF9-456C-8A2D-122A301B7930}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B65EB5C9-ABF9-456C-8A2D-122A301B7930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5454741-FD03-4B9A-BD4B-5C04BCA49921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5454741-FD03-4B9A-BD4B-5C04BCA49921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5454741-FD03-4B9A-BD4B-5C04BCA49921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5454741-FD03-4B9A-BD4B-5C04BCA49921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5454741-FD03-4B9A-BD4B-5C04BCA49921} = {86EEC9F3-446F-4D03-9A3B-F41784AB16E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3BB1A03-64A9-47F0-8415-F4A18A8DB4E2}

@@ -37,7 +37,7 @@ namespace TANP.Service
         {
             List<Basket> result = new List<Basket>();
 
-            result.Add(new Basket { CustomerId = 1 });
+            result.Add(new Basket { CustomerNumber = 1 });
 
             return result;
         }

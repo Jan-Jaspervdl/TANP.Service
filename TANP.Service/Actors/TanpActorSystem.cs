@@ -3,18 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TANP.Lib.Model;
 using TANP.Service.Messages;
 
 namespace TANP.Service.Actors
 {
-    public class TanpActorSystem
+    public class TanpActorSystem : ITanpActorSystem
     {
 
         public ActorSystem ActorSystem { get; private set; }
 
         public TanpActorSystem()
         {
-            ActorSystem =  ActorSystem.Create("TANP");
+            ActorSystem = ActorSystem.Create("TANP");
 
             // initialize structure
             IActorRef productManager = ActorSystem.ActorOf<ProductManagementActor>(ActorNames.ProductManager());
@@ -26,5 +27,29 @@ namespace TANP.Service.Actors
 
         }
 
+
+        public void AddItem(int basket, int product)
+        {
+            IActorRef basketManager = ActorSystem.ActorOf<ProductManagementActor>(ActorNames.BasketManager());
+
+            basketManager.Tell(new TakeProductMsg(product, basket));
+        }
+
+
+        public void RemoveItem(int basket, int product)
+        {
+            IActorRef basketManager = ActorSystem.ActorOf<ProductManagementActor>(ActorNames.BasketManager());
+
+            basketManager.Tell(new ReturnProductMsg(product, basket));
+        }
+
+        public Basket GetBasket(int basket)
+        {
+            List<Product> items = new List<Product>();
+            items.Add(new Product { Price = 5, ProductName = "test prod", ProductNumber = 123 });
+
+            return new Basket { BasketNumber = basket, ProductItems = items, CustomerNumber = 654 };
+
+        }
     }
 }

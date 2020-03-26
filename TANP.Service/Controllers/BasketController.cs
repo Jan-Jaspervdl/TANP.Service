@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TANP.Lib.Model;
-using TANP.Lib.RequestModel;
 using TANP.Service.Services;
 
 namespace TANP.Service.Controllers
@@ -16,7 +12,7 @@ namespace TANP.Service.Controllers
     {
 
        private readonly ILogger<BasketController> logger;
-        private readonly IBasketManager manager;
+       private readonly IBasketManager manager;
 
 
         public BasketController(IBasketManager basketManager, ILogger<BasketController> logger)
@@ -25,7 +21,7 @@ namespace TANP.Service.Controllers
             this.logger = logger;
         }
 
-        [HttpGet("{orderNumber}")]
+        [HttpGet("{basketnumber}")]
         public ActionResult<Basket> Get(int basketnumber)
         {
             logger.LogInformation($"Get called ({basketnumber})");
@@ -35,7 +31,8 @@ namespace TANP.Service.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                logger.LogError(e, $"Error at BasketController.Get({basketnumber})");
+                return StatusCode(500, e.Message);
             }
         }
 
@@ -45,33 +42,35 @@ namespace TANP.Service.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost("/item")]
-        public ActionResult<Product> AddItem([FromBody] ItemRequest request)
+        [HttpPost("{basketNumber}/item/{productNumber}")]
+        public ActionResult<Product> AddItem(int basketNumber, int productNumber)
         {
-            logger.LogInformation($"AddItem Post called ({request.ProductNumber})");
+            logger.LogInformation($"AddItem Post called ({productNumber})");
             try
             {
-                return Created(Request.Path, manager.AddItem(request.BasketNumber, request.ProductNumber));
+                return Created(Request.Path, manager.AddItem(basketNumber, productNumber));
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, e.Message);
             }
+
         }
 
-        [HttpDelete("/item")]
-        public ActionResult RemoveItem([FromBody] ItemRequest request)
+
+        [HttpDelete("{basketNumber}/item/{productNumber}")]
+        public ActionResult RemoveItem(int basketNumber, int productNumber)
         {
-            logger.LogInformation($"RemoveItem Delete called ({request.ProductNumber})");
+            logger.LogInformation($"RemoveItem Delete called ({productNumber})");
 
             try
             {
-                manager.RemoveItem(request.BasketNumber, request.ProductNumber);
+                manager.RemoveItem(basketNumber, productNumber);
                 return StatusCode(204);
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, e.Message);
             }
         }
 

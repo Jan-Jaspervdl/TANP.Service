@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TANP.Lib.Model;
+﻿using TANP.Lib.Model;
 
 namespace TANP.Service.Messages
 {

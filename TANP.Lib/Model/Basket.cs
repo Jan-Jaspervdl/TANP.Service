@@ -8,7 +8,8 @@ namespace TANP.Lib.Model
 {
    public  class Basket
     {
-        public int CustomerId { get; set; }
+        public int BasketNumber { get; set; }
+        public int CustomerNumber { get; set; }
         public List<Product> ProductItems { get; set; } = new List<Product>();
         public decimal TotalAmount => ProductItems?.Sum(p => p.Price)??0;
     }
