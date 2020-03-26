@@ -1,9 +1,6 @@
 ﻿using Akka.Actor;
 using Akka.TestKit.Xunit2;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TANP.Lib.Model;
 using TANP.Service.Actors;
 using TANP.Service.Messages;

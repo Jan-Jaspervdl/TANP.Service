@@ -28,11 +28,12 @@ namespace TANP.Service.Actors
         }
 
 
-        public void AddItem(int basket, int product)
+        public Product AddItem(int basket, int product)
         {
             IActorRef basketManager = ActorSystem.ActorOf<ProductManagementActor>(ActorNames.BasketManager());
 
             basketManager.Tell(new TakeProductMsg(product, basket));
+            return new Product { ProductNumber = product };  
         }
 
 
@@ -45,8 +46,8 @@ namespace TANP.Service.Actors
 
         public Basket GetBasket(int basket)
         {
-            List<Product> items = new List<Product>();
-            items.Add(new Product { Price = 5, ProductName = "test prod", ProductNumber = 123 });
+            List<BasketItem> items = new List<BasketItem>();
+            items.Add(new BasketItem { Product = new Product { Price = 5, ProductName = "test prod", ProductNumber = 123 }, Count = 2 });
 
             return new Basket { BasketNumber = basket, ProductItems = items, CustomerNumber = 654 };
 

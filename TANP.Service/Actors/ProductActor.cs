@@ -37,6 +37,9 @@ namespace TANP.Service.Actors
                 case AddNewProductMsg nw:
                     Handle (nw);
                     break;
+                case ResponseMessage response:
+                    Sender.Tell(response);
+                    break;
             }
         }
 
@@ -46,12 +49,13 @@ namespace TANP.Service.Actors
             {
                 Sender.Tell(new ProductOutOfStockMessage());
             }
-              //  throw new OutOfStockException();
 
             stock--;
 
             ActorSelection basketActor = Context.ActorSelection(ActorSelectionPaths.Basket(msg.BasketId));
             msg.Product = product;
+#warning dit zou wel eens in strijd kunnen zijn met de principes dat een bericht immutable is. 
+
             basketActor.Tell(msg);
             Sender.Tell(new ResponseMessage { RequestMessage = msg, Response = "Product picked from stock", ResponseObject = product });
         }

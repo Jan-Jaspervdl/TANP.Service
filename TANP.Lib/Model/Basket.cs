@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 
 namespace TANP.Lib.Model
 {
-   public  class Basket
+    public  class Basket
     {
         public int BasketNumber { get; set; }
         public int CustomerNumber { get; set; }
-        public List<Product> ProductItems { get; set; } = new List<Product>();
-        public decimal TotalAmount => ProductItems?.Sum(p => p.Price)??0;
+        public List<BasketItem> ProductItems { get; set; } = new List<BasketItem>();
+        public decimal TotalAmount => ProductItems?.Sum(p => p.Amount)??0;
     }
 }

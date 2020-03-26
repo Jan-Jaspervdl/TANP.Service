@@ -24,7 +24,6 @@ namespace TANP.Service.Actors
                 case Shutdown sd:
                     Handle(sd);
                     break;
-
             }
         }
 
@@ -47,7 +46,6 @@ namespace TANP.Service.Actors
 
             ActorSelection productmananger = Context.ActorSelection(ActorSelectionPaths.ProductManager());
             productmananger.Tell(msg);
-
 
         if(ItemCount==0)
             {

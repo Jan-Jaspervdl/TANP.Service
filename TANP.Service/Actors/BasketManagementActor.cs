@@ -20,6 +20,9 @@ namespace TANP.Service.Actors
                 case ReturnProductMsg ret:
                     Handle(ret);
                     break;
+                case ResponseMessage response:
+                    Sender.Tell(response);
+                    break;
             }
         }
 

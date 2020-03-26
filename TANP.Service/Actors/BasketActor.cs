@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TANP.Lib.Model;
 using TANP.Service.Messages;
 
 namespace TANP.Service.Actors
@@ -19,6 +20,10 @@ namespace TANP.Service.Actors
                 case ReturnProductMsg ret:
                     Handle(ret);
                     break;
+                case ResponseMessage response:
+                    Sender.Tell(response);
+                    break;
+
             }
         }
 
@@ -37,6 +42,14 @@ namespace TANP.Service.Actors
             itemActor.Tell(msg);
         }
 
+
+        private Basket GetBasket()
+        {
+            IEnumerable<IActorRef> itemActors = Context.GetChildren();
+#warning hier moeten de items bevraagd worden
+
+            throw new NotImplementedException();
+        }
     }
 }
 
